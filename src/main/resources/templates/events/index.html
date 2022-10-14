@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 <body>
 
 <header th:replace="fragments :: header"></header>
 
-<ul>
+<table class="table">
+    <thead>
+        <tr>
+            <td>Event Name</td>
+            <td>Description</td>
+            <td>Address</td>
+        </tr>
+    </thead>
     <th:block th:each="event : ${events}">
-        <li th:text="${event}"></li>
+        <tr>
+            <td th:text="${event.getKey}"></td>
+            <td th:text="${event.getValue}"></td>
+            <td th:replace="fragments :: address"></td>
+        </tr>
     </th:block>
-</ul>
+</table>
 
 </body>
 </html>
