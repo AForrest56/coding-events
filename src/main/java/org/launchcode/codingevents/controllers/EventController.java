@@ -29,6 +29,7 @@ public class EventController {
     @GetMapping("create")
     public String displayCreateEventForm(Model model) {
         model.addAttribute("title", "Create Event");
+        model.addAttribute(new Event());
         return "events/create";
     }
 
@@ -36,7 +37,6 @@ public class EventController {
     public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
         if(errors.hasErrors()){
             model.addAttribute("title", "Create Event");
-            model.addAttribute("errorMsg", "Bad Data!");
             return "events/create";
         }
         EventData.add(newEvent);
@@ -71,10 +71,15 @@ public class EventController {
     }
 
     @PostMapping("edit")
-    public String processEditForm(int eventId, String name, String description){
+    public String processEditForm(int eventId, String name, String description, String location,
+                                  int numberOfAttendees, String contactEmail, String registrationRequired){
         Event eventToEdit = EventData.getById(eventId);
         eventToEdit.setName(name);
         eventToEdit.setDescription(description);
+        eventToEdit.setLocation(location);
+        eventToEdit.setNumberOfAttendees(numberOfAttendees);
+        eventToEdit.setContactEmail(contactEmail);
+        eventToEdit.setRegistrationRequired(registrationRequired);
         return "redirect:";
     }
 }
